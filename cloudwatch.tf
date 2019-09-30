@@ -1,9 +1,9 @@
 resource "aws_cloudwatch_log_group" "cloudtrail-events" {
-  name = "cloudtrail-events"
+  name = "cloudtrail-events-${data.aws_region.current.name}"
 }
 
 resource "aws_sns_topic" "cloudtrail-sns-topic" {
-  name = "cloudtrail-alarms"
+  name = "cloudtrail-alarms-${data.aws_region.current.name}"
 }
 
 resource "aws_cloudwatch_log_metric_filter" "cis-cloudtrail-filters" {
