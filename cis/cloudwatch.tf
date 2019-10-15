@@ -11,7 +11,7 @@ resource "aws_cloudwatch_log_metric_filter" "cis-cloudtrail-filters" {
   log_group_name = "${var.log_group}"
    metric_transformation {
     name = "${lookup(var.metric_filters[count.index], "name")}"
-    namespace = "CisBenchmarks"
+    namespace = "AWS/EC2"
     value = "1"
   }
   name = "${lookup(var.metric_filters[count.index], "name")}Filter"
@@ -25,10 +25,10 @@ resource "aws_cloudwatch_metric_alarm" "cis-cloudtrail-alarms" {
   comparison_operator = "GreaterThanOrEqualToThreshold"
   evaluation_periods = 1
   metric_name = "${lookup(var.metric_filters[count.index], "name")}"
-  namespace = "CisBenchmarks"
   statistic = "Sum"
   period = 300
   threshold = 1.0
   alarm_actions = ["${aws_sns_topic.cloudtrail-sns-topic.arn}"]
 }
+
 
